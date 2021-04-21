@@ -60,7 +60,9 @@ static UNUSEDOK int FreeRam(void) {
 */
 static NOINLINE void SerialPrint_P(PGM_P str) {
   for (uint8_t c; (c = pgm_read_byte(str)); str++) {
-    Serial.write(c);
+    #ifndef __DEBUG__
+      Serial.write(c);
+    #endif
   }
 }
 //------------------------------------------------------------------------------
@@ -71,7 +73,9 @@ static NOINLINE void SerialPrint_P(PGM_P str) {
 */
 static NOINLINE void SerialPrintln_P(PGM_P str) {
   SerialPrint_P(str);
-  Serial.println();
+  #ifndef __DEBUG__
+    Serial.println();
+  #endif
 }
 #endif  // __AVR__
 #endif  // #define SdFatUtil_h
